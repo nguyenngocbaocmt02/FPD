@@ -1,0 +1,5 @@
+dcbench_config:
+  local_dir: "dcbench_dataset"
+  celeba_dir: "base_dataset/celeba"
+  imagenet_dir: "base_dataset/imagenet"
+  public_backet_name: "dcbench"

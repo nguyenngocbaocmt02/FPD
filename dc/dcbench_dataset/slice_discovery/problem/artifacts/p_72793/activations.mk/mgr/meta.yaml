@@ -1,0 +1,22 @@
+_column_order:
+- id
+- emb
+columns:
+  emb:
+    block:
+      block_dir: blocks/139708452977488
+      block_index:
+        start: 2
+        step: 1
+        stop: 514
+      mmap: false
+    dtype: !!python/name:meerkat.columns.tensor_column.TensorColumn ''
+    len: 9062
+  id:
+    block:
+      block_dir: blocks/139708521321232
+      block_index: id
+      mmap: false
+    dtype: !!python/name:meerkat.columns.pandas_column.PandasSeriesColumn ''
+    len: 9062
+dtype: !!python/name:meerkat.block.manager.BlockManager ''
