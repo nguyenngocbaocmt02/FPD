@@ -1,7 +1,0 @@
-column_dtypes:
-  id: &id001 !!python/name:meerkat.columns.pandas_column.PandasSeriesColumn ''
-  probs: !!python/name:meerkat.ml.prediction_column.ClassificationOutputColumn ''
-  split: *id001
-  target: !!python/name:meerkat.columns.numpy_column.NumpyArrayColumn ''
-dtype: !!python/name:meerkat.datapanel.DataPanel ''
-len: 5979
