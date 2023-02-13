@@ -116,8 +116,8 @@ if __name__ == "__main__":
     varthetas = [0.25, 0.5, 0, 0.75, 1.0]
     for vartheta in varthetas:
         for dataset in datasets:    
-            #if dataset != "id_11":
-            #    continue      
+            if dataset != "id_8":
+                continue      
             dataset_path = os.path.join(os.path.join(datasets_folder_path, dataset))
             save_path = os.path.join(os.path.join(os.path.join(result_folder_path, "gp_cdpp_" + str(vartheta)), dataset), "result.csv")
             if os.path.exists(save_path):
