@@ -1,0 +1,5 @@
+column_dtypes:
+  emb: !!python/name:meerkat.columns.tensor_column.TensorColumn ''
+  id: !!python/name:meerkat.columns.pandas_column.PandasSeriesColumn ''
+dtype: !!python/name:meerkat.datapanel.DataPanel ''
+len: 9028

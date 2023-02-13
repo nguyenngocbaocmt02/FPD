@@ -49,7 +49,7 @@ class DcbenchInstance:
         else:
             self.dp = copy.deepcopy(self.dp[["emb"]])
 
-    def create_instance(self, pattern_size, knn_num, snr=-1):
+    def create_instance(self, pattern_size, knn_num):
         with_image = self.with_image
         adj_list = np.argpartition(self.emb_distance_matrix, knn_num + 1)[:, 0:knn_num + 1]
         adj_matrix = np.zeros((self.N, self.N))
@@ -71,71 +71,34 @@ class DcbenchInstance:
             for sample in pattern:
                 pattern_mask[sample] = i
 
-        if snr != -1:
-            noise_failure_samples = []
-            in_pattern_samples = []
-            for i, pattern in enumerate(pattern_mask):
-                if pattern == -1 and self.pseudo_label[i] != self.true_label[i]:
-                    noise_failure_samples.append(i)
-                if pattern != -1:
-                    in_pattern_samples.append(i)
-            if snr == 0:
-                raise Exception("Invalid snr, instance id: " + str(self.instance_id) 
-                                + ", snr: " + str(snr), "Need str >= " 
-                                + str(float(len(in_pattern_samples)) / len(noise_failure_samples)))
-            target_noise_failure_samples = int(float(len(in_pattern_samples)) / snr)
-            rm_noise_failure_samples = len(noise_failure_samples) - target_noise_failure_samples
-            if rm_noise_failure_samples < 0 or rm_noise_failure_samples > len(noise_failure_samples) - 1:
-                raise Exception("Invalid snr, instance id: " + str(self.instance_id) 
-                                + ", snr: " + str(snr), "Need str >= " 
-                                + str(float(len(in_pattern_samples)) / len(noise_failure_samples)))
-            np.random.seed(0)
-            rm_list = np.random.choice(noise_failure_samples, size=rm_noise_failure_samples, replace=False)
-            pseudo_label = copy.deepcopy(self.pseudo_label)
-            true_label = copy.deepcopy(self.true_label)
-            for i in rm_list:
-                pseudo_label[i] = true_label[i]
-            if with_image:
-                dp = mk.DataPanel(
-                {
-                    "emb": copy.deepcopy(self.emb),
-                    "image": copy.deepcopy(self.dp["image"]),
-                    "true_label": true_label,
-                    "pseudo_label": pseudo_label,
-                    "pattern": pattern_mask
-                }
-                )
-            else:
-                dp = mk.DataPanel(
-                {
-                    "emb": copy.deepcopy(self.emb),
-                    "true_label": true_label,
-                    "pseudo_label": pseudo_label,
-                    "pattern": pattern_mask
-                }
-                )
+        cnt_signal = 0
+        cnt_noise = 0
+        for i, pattern in enumerate(pattern_mask):
+            if pattern == -1 and self.pseudo_label[i] != self.true_label[i]:
+                cnt_noise += 1
+            if pattern != -1:
+                cnt_signal += 1
+        if with_image:
+            dp = mk.DataPanel(
+            {
+                "emb": copy.deepcopy(self.emb),
+                "image": copy.deepcopy(self.dp["image"]),
+                "true_label": copy.deepcopy(self.true_label),
+                "pseudo_label": copy.deepcopy(self.pseudo_label),
+                "pattern": pattern_mask
+            }
+            )
         else:
-            if with_image:
-                dp = mk.DataPanel(
-                {
-                    "emb": copy.deepcopy(self.emb),
-                    "image": copy.deepcopy(self.dp["image"]),
-                    "true_label": copy.deepcopy(self.true_label),
-                    "pseudo_label": copy.deepcopy(self.pseudo_label),
-                    "pattern": pattern_mask
-                }
-                )
-            else:
-                dp = mk.DataPanel(
-                {
-                    "emb": copy.deepcopy(self.emb),
-                    "true_label": copy.deepcopy(self.true_label),
-                    "pseudo_label": copy.deepcopy(self.pseudo_label),
-                    "pattern": pattern_mask
-                }
-                )                
+            dp = mk.DataPanel(
+            {
+                "emb": copy.deepcopy(self.emb),
+                "true_label": copy.deepcopy(self.true_label),
+                "pseudo_label": copy.deepcopy(self.pseudo_label),
+                "pattern": pattern_mask
+            }
+            )                
         print(np.unique(dp["pattern"], return_counts=True))
-        return dp
+        return dp, cnt_signal / cnt_noise
 
 class Graph: 
     # init function to declare class variables

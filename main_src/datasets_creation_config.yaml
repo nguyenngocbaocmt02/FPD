@@ -1,0 +1,74 @@
+id_1:
+  dcbench: p_72799
+  pattern_size: 10
+  knn_num: 7
+
+id_2:
+  dcbench: p_122144
+  pattern_size: 10
+  knn_num: 7  
+
+id_3:
+  dcbench: p_121880
+  pattern_size: 10
+  knn_num: 7
+
+id_4:
+  dcbench: p_122653
+  pattern_size: 10
+  knn_num: 7
+  
+id_5:
+  dcbench: p_118660
+  pattern_size: 10
+  knn_num: 8
+
+id_6:
+  dcbench: p_122145
+  pattern_size: 10
+  knn_num: 11
+id_7:
+  dcbench: p_121753
+  pattern_size: 10
+  knn_num: 10
+
+id_8:
+  dcbench: p_122406
+  pattern_size: 10
+  knn_num: 16
+
+id_9:
+  dcbench: p_118049
+  pattern_size: 10
+  knn_num: 12
+
+id_10:
+  dcbench: p_122150
+  pattern_size: 10
+  knn_num: 10
+
+id_11:
+  dcbench: p_121948
+  pattern_size: 10
+  knn_num: 15
+
+id_12:
+  dcbench: p_122417
+  pattern_size: 10
+  knn_num: 19
+
+id_13:
+  dcbench: p_122313
+  pattern_size: 10
+  knn_num: 15
+
+id_14:
+  dcbench: p_121977
+  pattern_size: 10
+  knn_num: 17
+
+id_15:
+  dcbench: p_121854
+  pattern_size: 10
+  knn_num: 24
+

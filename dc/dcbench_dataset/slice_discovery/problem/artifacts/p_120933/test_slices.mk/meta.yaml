@@ -1,0 +1,5 @@
+column_dtypes:
+  id: !!python/name:meerkat.columns.pandas_column.PandasSeriesColumn ''
+  slices: !!python/name:meerkat.columns.numpy_column.NumpyArrayColumn ''
+dtype: !!python/name:meerkat.datapanel.DataPanel ''
+len: 5939

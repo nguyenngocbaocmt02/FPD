@@ -1,0 +1,7 @@
+column_dtypes:
+  emb: &id001 !!python/name:meerkat.columns.numpy_column.NumpyArrayColumn ''
+  pattern: *id001
+  pseudo_label: *id001
+  true_label: *id001
+dtype: !!python/name:meerkat.datapanel.DataPanel ''
+len: 6107

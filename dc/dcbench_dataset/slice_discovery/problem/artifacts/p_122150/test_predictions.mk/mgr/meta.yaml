@@ -1,0 +1,38 @@
+_column_order:
+- id
+- target
+- probs
+- split
+columns:
+  id:
+    block:
+      block_dir: blocks/139690382604320
+      block_index: id
+      mmap: false
+    dtype: &id001 !!python/name:meerkat.columns.pandas_column.PandasSeriesColumn ''
+    len: 6107
+  probs:
+    block:
+      block_dir: blocks/139690382602400
+      block_index:
+        start: 514
+        step: 1
+        stop: 516
+      mmap: false
+    dtype: !!python/name:meerkat.ml.prediction_column.ClassificationOutputColumn ''
+    len: 6107
+  split:
+    block:
+      block_dir: blocks/139690382604320
+      block_index: split
+      mmap: false
+    dtype: *id001
+    len: 6107
+  target:
+    block:
+      block_dir: blocks/139690382604608
+      block_index: 0
+      mmap: false
+    dtype: !!python/name:meerkat.columns.numpy_column.NumpyArrayColumn ''
+    len: 6107
+dtype: !!python/name:meerkat.block.manager.BlockManager ''

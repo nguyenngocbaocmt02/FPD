@@ -1,0 +1,22 @@
+_column_order:
+- id
+- slices
+columns:
+  id:
+    block:
+      block_dir: blocks/139690010560688
+      block_index: id
+      mmap: false
+    dtype: !!python/name:meerkat.columns.pandas_column.PandasSeriesColumn ''
+    len: 6017
+  slices:
+    block:
+      block_dir: blocks/139690009819936
+      block_index:
+        start: 0
+        step: null
+        stop: 3
+      mmap: false
+    dtype: !!python/name:meerkat.columns.numpy_column.NumpyArrayColumn ''
+    len: 6017
+dtype: !!python/name:meerkat.block.manager.BlockManager ''
