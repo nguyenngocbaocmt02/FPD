@@ -19,3 +19,8 @@
 ### Visualize the performance of models
 * run command: `$ python visualize_src/draw_performance.py <path to results folder> <path to save folder>`
 *Example: `$ python visualize_src/draw_performance.py results figures/performance_figures`
+
+###
+*Example: `$ python visualize_src/dataset_description_table.py datasets/ figures/datasets_description.csv`
+*Example `$ python visualize_src/performance_table.py results/ figures/performance_table.csv`
+*Example `$ python visualize_src/performance_type_table.py results/ figures/performance_type_table.csv`

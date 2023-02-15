@@ -56,14 +56,13 @@ class GPCDPP:
         print(hX, h, self.delta)
         self.similarity_matrix = gaussian_similarity_matrix_with_psedolabels_distribution(emb, hX, mean_distribution_emb, cov_distribution_emb, h)
 
-
-    def suggest_queries(self, g_observe, queried_index, unqueried_index, queries_num, regularization_factor = 1e-10):
+    def suggest_queries(self, g_observe, queried_index, unqueried_index, queries_num):
         # for each iteration
         N_queried = len(queried_index)
         N_unqueried = len(unqueried_index)
         N = N_queried + N_unqueried
-        if N_unqueried == 0:
-            return []
+        if N_unqueried <= queries_num:
+            return unqueried_index
         mapping_to_original_data = queried_index + unqueried_index
         emb_rearrange = self.emb[mapping_to_original_data]
         g_rearrange = g_observe[mapping_to_original_data]
@@ -74,8 +73,11 @@ class GPCDPP:
         K_s = cov_rearrange[0 : N_queried, N_queried : N]
         K_st = cov_rearrange[N_queried : N, 0 : N_queried]
         K_s_s = cov_rearrange[N_queried : N, N_queried : N]
-        K_inverse = np.linalg.inv(K)
-            
+        try:
+            K_inverse = np.linalg.inv(K)
+        except:
+            K_inverse = np.linalg.pinv(K)
+
         m_unqueried = m_rearrange[N_queried : N] + K_st @ K_inverse @ (g_rearrange[0 : N_queried] - m_rearrange[0 : N_queried])
         cov_unqueried = K_s_s - K_st @ K_inverse @ K_s
 
@@ -94,7 +96,6 @@ class GPCDPP:
 
         term = np.linalg.inv(cov_rearrange + identity_unqueried)[N_queried : N, N_queried : N]
         S_s_t = np.linalg.inv(term) - np.identity(N_unqueried)
-        
 
         T_s_t = self.vartheta * S_s_t + (1 - self.vartheta) * P_s_t
 

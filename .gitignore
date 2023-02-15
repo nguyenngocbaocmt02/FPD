@@ -1,4 +1,4 @@
-dc/dcbench_dataset/slice_discovery/problem/artifacts
+dc/dcbench_dataset/slice_discovery/problem/artifacts/*/*
 # Logs
 logs
 *.log
