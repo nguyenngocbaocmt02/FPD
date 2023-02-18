@@ -73,6 +73,8 @@ def ufs_solve_dataset(dp, cfg, queries_num, seed, save_path):
                     tmp += 1
             log_each_pattern[ii].append(float(tmp) / len(dataset.misclassified_patterns[ii]))
             log_each_pattern2[ii].append(min(1.0, float(tmp) / dataset.pattern_size))
+
+        print("Iteration", iteration, ":", float(num_detected_patterns) / len(dataset.misclassified_patterns), len(misclassified_index) / len(dataset.misclassified_index))
         if len(unqueried_index) == 0:
             break
 
