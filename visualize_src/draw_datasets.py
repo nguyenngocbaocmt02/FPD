@@ -42,9 +42,9 @@ def draw_dataset(dataset_folder_path, image_save_path):
     in_pattern_pattern = np.array(in_pattern_pattern)
     print(len(in_pattern_samples), len(failed_samples))
     reducer = umap.UMAP(n_neighbors=cfg["knn_num"],
-                    min_dist=0.05,
+                    min_dist=0.1,
                     n_components=2,
-                    metric='euclidean', n_epochs=100, random_state=42)
+                    metric='euclidean', n_epochs=150, random_state=42)
     reducer.fit_transform(in_pattern_samples, in_pattern_pattern)
 
     emb_failed_reduced = reducer.transform(failed_samples)
@@ -59,7 +59,9 @@ def draw_dataset(dataset_folder_path, image_save_path):
         plt.scatter([emb_failed_reduced[i][0] for i in range(len(pattern_failed_samples)) if pattern_failed_samples[i] == pattern],
                     [emb_failed_reduced[i][1] for i in range(len(pattern_failed_samples)) if pattern_failed_samples[i] == pattern],
                     label="Pattern " + str(pattern), marker="o", edgecolors='k', linewidths=0.5)  
-    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    plt.legend(loc='best')
+    plt.xticks([])
+    plt.yticks([])
     os.makedirs(os.path.dirname(image_save_path), exist_ok=True)
     plt.savefig(image_save_path, dpi = 500, bbox_inches='tight')
     plt.figure().clear()
@@ -77,6 +79,5 @@ if __name__ == "__main__":
     for dataset in datasets:          
         dataset_path = os.path.join(os.path.join(datasets_folder_path, dataset))
         save_path = os.path.join(os.path.join(result_folder_path, dataset + ".pdf"))
-        if os.path.exists(save_path):
-            continue
+
         draw_dataset(dataset_path, save_path)

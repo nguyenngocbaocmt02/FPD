@@ -11,6 +11,7 @@ def performance(result_folder_path):
     only_csv_files = [f for f in listdir(result_folder_path) if isfile(join(result_folder_path, f)) and f[-4:] == ".csv"]
     first_inds = []
     all_inds = []
+    
     for i, file in enumerate(only_csv_files):
         first_ind = 1.0
         all_ind = 1.0
@@ -39,13 +40,18 @@ if __name__ == "__main__":
     datasets = ["id_" + str(i) for i in range(1, 16)]
     f_table = {key1: {key2: None for key2 in methods} for key1 in datasets}
     a_table = {key1: {key2: None for key2 in methods} for key1 in datasets}
+    allf_table = {key1: [] for key1 in methods}
+    alla_table = {key1: [] for key1 in methods}
     for method in methods:
         for dataset in os.listdir(os.path.join(result_folder_path, method)):          
             res_path = os.path.join(os.path.join(os.path.join(result_folder_path, method), dataset))
             f_mean, f_std, a_mean, a_std = performance(res_path)
             f_table[dataset][method] = str(round(f_mean, 2)) + '\u00B1' + str(round(f_std, 2))
             a_table[dataset][method] = str(round(a_mean, 2)) + '\u00B1' + str(round(a_std, 2)) 
+            allf_table[method].append(f_mean)
+            alla_table[method].append(a_mean)
 
+    
     os.makedirs(os.path.dirname(table_path), exist_ok=True)
     with open(table_path, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
@@ -57,6 +63,13 @@ if __name__ == "__main__":
             for method in methods:
                 row_data.append(f_table[dataset][method])
             writer.writerow(row_data)
+        row_data = ["Overall"]
+        for method in methods:
+            tmp = np.array(allf_table[method])
+            row_data.append(str(round(np.mean(tmp), 2)) + '\u00B1' + str(round(np.std(tmp), 2)))
+        writer.writerow(row_data)
+        writer.writerow([])
+        writer.writerow([])
         # write the headers row for a_table
         writer.writerow(['Dataset'] + [f'{method} (a)' for method in methods])
         # write the data rows for a_table
@@ -65,3 +78,8 @@ if __name__ == "__main__":
             for method in methods:
                 row_data.append(a_table[dataset][method])
             writer.writerow(row_data)
+        row_data = ["Overall"]
+        for method in methods:
+            tmp = np.array(alla_table[method])
+            row_data.append(str(round(np.mean(tmp), 2)) + '\u00B1' + str(round(np.std(tmp), 2)))
+        writer.writerow(row_data)

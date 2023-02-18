@@ -123,5 +123,8 @@ if __name__ == "__main__":
             dp, config = read_dataset(dataset_path)
             print(dataset, vartheta, config["snr"])  
 
-            gp_cdpp_solve_dataset(dp, config, vartheta, queries_num, save_path)
+            try:
+                gp_cdpp_solve_dataset(dp, config, vartheta, queries_num, save_path)
+            except:
+                pass
         
