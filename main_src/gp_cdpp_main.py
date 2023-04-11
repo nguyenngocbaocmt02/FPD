@@ -10,6 +10,7 @@ from utils.misclassified_patterns_djs import DisjSet
 from utils.dataset import Dataset
 from methods.gp_cdpp.gp_cdpp import GPCDPP
 sys.path.append(os.path.dirname(__file__))
+import traceback
 import csv
 
 def read_dataset(save_path):
@@ -18,9 +19,9 @@ def read_dataset(save_path):
         cfg = yaml.load(ymlfile, Loader=SafeLoader)
     return dp, cfg   
 
-def gp_cdpp_solve_dataset(dp, cfg, vartheta, queries_num, save_path):
+def gp_cdpp_solve_dataset(dp, cfg, vartheta, delta, queries_num, save_path):
     dataset = Dataset(dp, cfg["pattern_size"], cfg["knn_num"])
-    model = GPCDPP(delta=np.sqrt(2) * 10 ** (-6), vartheta=vartheta, down_size=2, L=-100.0, U=100.0)
+    model = GPCDPP(delta= delta, vartheta=vartheta, down_size=2, L=-100.0, U=100.0)
     model.fit(emb=dataset.emb, C=np.max(dataset.pseudo_label) + 1, pseudo_label=dataset.pseudo_label)
     N = dataset.emb.shape[0]
     queried_index = []
@@ -113,18 +114,22 @@ if __name__ == "__main__":
     result_folder_path = sys.argv[3]
 
     datasets = os.listdir(datasets_folder_path) 
-    varthetas = [0.25, 0.5, 0, 0.75, 1.0]
-    for vartheta in varthetas:
-        for dataset in datasets:         
-            dataset_path = os.path.join(os.path.join(datasets_folder_path, dataset))
-            save_path = os.path.join(os.path.join(os.path.join(result_folder_path, "gp_cdpp_" + str(vartheta)), dataset), "result.csv")
-            if os.path.exists(save_path):
-                continue
-            dp, config = read_dataset(dataset_path)
-            print(dataset, vartheta, config["snr"])  
-
-            try:
-                gp_cdpp_solve_dataset(dp, config, vartheta, queries_num, save_path)
-            except:
-                pass
-        
+    varthetas = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    deltas = [10 ** -10, 10 ** -9, 10 ** -8, 10 ** -7, 10 ** -6, 10 ** -5, 10 ** -4, 10 ** -3, 10 ** -2, 10 ** -1]
+    for dataset in datasets:    
+        for vartheta in varthetas:
+            for delta in deltas:        
+                dataset_path = os.path.join(os.path.join(datasets_folder_path, dataset))
+                save_path = os.path.join(os.path.join(os.path.join(result_folder_path, "gp_cdpp_" + str(vartheta) + "_" + str(np.log10(delta))), dataset), "result.csv")
+                if os.path.exists(save_path):
+                    continue
+                dp, config = read_dataset(dataset_path)
+                print(dataset, vartheta, delta, config["snr"])  
+            
+                try:
+                    # some code that may raise an error
+                    gp_cdpp_solve_dataset(dp, config, vartheta, delta, queries_num, save_path)
+                except Exception as error:
+                    # print a detailed traceback of the error
+                    traceback.print_exc()
+            

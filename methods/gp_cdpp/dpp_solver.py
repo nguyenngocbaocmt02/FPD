@@ -23,7 +23,7 @@ def map_inference_dpp_greedy(kernel_matrix, max_length, epsilon=1E-10):
     while len(selected_items) < max_length:
         k = len(selected_items) - 1
         ci_optimal = cis[:k, selected_item]
-        di_optimal = math.sqrt(di2s[selected_item])
+        di_optimal = math.sqrt(max(0, di2s[selected_item]))
         if di_optimal == 0:
             di_optimal = epsilon
         # start_x_time = time.time()

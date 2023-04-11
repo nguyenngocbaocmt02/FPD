@@ -16,18 +16,24 @@ def performance(result_folder_path):
         first_ind = 0.0
         second_ind = 0.0
         third_ind = 0.0
+        a1 = True
+        a2 = True
+        a3 = True
         data = pd.read_csv(os.path.join(result_folder_path, file))
         x = np.array(list(map(int, data['Iteration'])))
         queried_per = np.array(list(map(float, data['Queried X/ All X'])))
         queried_misclassified_per = np.array(list(map(float, data['Queried misclassified samples / All misclassified samples'])))
         detected_pattern_per = np.array(list(map(float, data['Detected patterns / All patterns'])))
         for i in range(len(x)):
-            if queried_per[i] >= 0.1 and first_ind == 0.0:
+            if queried_per[i] >= 0.1 and a1:
                 first_ind = detected_pattern_per[i]
-            if queried_per[i] >= 0.2 and second_ind == 0.0:
+                a1 = False
+            if queried_per[i] >= 0.2 and a2:
                 second_ind = detected_pattern_per[i]
-            if queried_per[i] >= 0.3 and third_ind == 0.0:
+                a2 = False
+            if queried_per[i] >= 0.3 and a3:
                 third_ind = detected_pattern_per[i]
+                a3 = False
         first_inds.append(first_ind)
         second_inds.append(second_ind)
         third_inds.append(third_ind)

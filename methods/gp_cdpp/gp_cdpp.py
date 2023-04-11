@@ -94,8 +94,14 @@ class GPCDPP:
         identity_unqueried = np.zeros([N, N])
         np.fill_diagonal(identity_unqueried[N_queried : N, N_queried : N], 1)
 
-        term = np.linalg.inv(cov_rearrange + identity_unqueried)[N_queried : N, N_queried : N]
-        S_s_t = np.linalg.inv(term) - np.identity(N_unqueried)
+        try:
+            term = np.linalg.inv(cov_rearrange + identity_unqueried)[N_queried : N, N_queried : N]
+        except:
+            term = np.linalg.pinv(cov_rearrange + identity_unqueried)[N_queried : N, N_queried : N]
+        try:
+            S_s_t = np.linalg.inv(term) - np.identity(N_unqueried)
+        except:
+            S_s_t = np.linalg.pinv(term) - np.identity(N_unqueried)
 
         T_s_t = self.vartheta * S_s_t + (1 - self.vartheta) * P_s_t
 
@@ -105,6 +111,3 @@ class GPCDPP:
         for i in range(len(m_unqueried)):
             self.mean_gaussian[unqueried_index[i]] = m_unqueried[i]   
         return queries
-
-    
-

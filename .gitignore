@@ -1,4 +1,6 @@
 dc/dcbench_dataset/slice_discovery/problem/artifacts/*/*
+dc/base_dataset/celeba/*
+dc/base_dataset/imagenet/*
 # Logs
 logs
 *.log
