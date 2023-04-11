@@ -1,6 +1,0 @@
-column_dtypes:
-  id: &id001 !!python/name:meerkat.columns.pandas_column.PandasSeriesColumn ''
-  image: !!python/name:meerkat.columns.image_column.ImageColumn ''
-  split: *id001
-dtype: !!python/name:meerkat.datapanel.DataPanel ''
-len: 202599
