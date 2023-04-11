@@ -1,6 +1,9 @@
 dc/dcbench_dataset/*
+!dc/dcbench_dataset
 dc/base_dataset/celeba/*
+!dc/base_dataset/celeba
 dc/base_dataset/imagenet/*
+!dc/base_dataset/imagenet
 # Logs
 logs
 *.log
