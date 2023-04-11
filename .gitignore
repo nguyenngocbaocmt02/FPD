@@ -1,9 +1,9 @@
 dc/dcbench_dataset/*
-!dc/dcbench_dataset
+!dc/dcbench_dataset/.gitkeep
 dc/base_dataset/celeba/*
-!dc/base_dataset/celeba
+!dc/base_dataset/celeba/.gitkeep
 dc/base_dataset/imagenet/*
-!dc/base_dataset/imagenet
+!dc/base_dataset/imagenet/.gitkeep
 # Logs
 logs
 *.log
