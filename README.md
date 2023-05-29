@@ -1,5 +1,6 @@
 ## [Efficient Failure Pattern Identification of Predictive Algorithms]
 
+### Python-version : 3.8.10
 ### Generate datasets.
 * run command: `$ python main_src/datasets_creation_main.py <path to datasets config (.yaml)> <path to datasets save folder>`
 * Config of dataset in our report in dataset_creation_config.yaml, example: `$ python main_src/datasets_creation_main.py main_src/datasets_creation_config.yaml datasets`
