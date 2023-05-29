@@ -4,7 +4,7 @@ dc/base_dataset/celeba/*
 !dc/base_dataset/celeba/.gitkeep
 dc/base_dataset/imagenet/*
 !dc/base_dataset/imagenet/.gitkeep
-results
+
 # Logs
 logs
 *.log
