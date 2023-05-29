@@ -29,10 +29,10 @@ def performance(result_folder_path):
                 if queried_per[j] >= threshold and a[k]:
                     ind[k] = detected_pattern_per[j]
                     a[k] = False
-            if detected_pattern_per[i] > 0 and first_ind == 1.0:
-                first_ind = queried_per[i]
-            if detected_pattern_per[i] == 1.0 and all_ind == 1.0:
-                all_ind = queried_per[i]
+            if detected_pattern_per[j] > 0 and first_ind == 1.0:
+                first_ind = queried_per[j]
+            if detected_pattern_per[j] == 1.0 and all_ind == 1.0:
+                all_ind = queried_per[j]
         first_inds.append(first_ind)
         all_inds.append(all_ind)
         for k, threshold in enumerate(mapp):
@@ -101,7 +101,7 @@ if __name__ == "__main__":
             writer.writerow(row_data)
         row_data = ["Overall"]
         for method in methods:
-            tmp = np.array(overall_performance_table[method][1][stt])
+            tmp = np.array(overall_performance_table[method][1])
             row_data.append(str(round(np.mean(tmp), 2)) + '\u00B1' + str(round(np.std(tmp), 2)))
         writer.writerow(row_data)
         writer.writerow([])
@@ -117,7 +117,7 @@ if __name__ == "__main__":
             writer.writerow(row_data)
         row_data = ["Overall"]
         for method in methods:
-            tmp = np.array(overall_performance_table[method][2][stt])
+            tmp = np.array(overall_performance_table[method][2])
             row_data.append(str(round(np.mean(tmp), 2)) + '\u00B1' + str(round(np.std(tmp), 2)))
         writer.writerow(row_data)
         writer.writerow([])
