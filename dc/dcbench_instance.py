@@ -42,12 +42,13 @@ class DcbenchInstance:
         
         self.dp["emb"] = self.emb
         self.true_label = np.array(self.dp["target"])
+        self.probs = np.array(self.dp["probs"])
         self.pseudo_label = np.argmax(np.array(self.dp["probs"]), axis=1)
         self.failure_id = np.array([i for i in range(self.N) if self.true_label[i] != self.pseudo_label[i]])
         if with_image:
-            self.dp = copy.deepcopy(self.dp[["emb", "image"]])
+            self.dp = copy.deepcopy(self.dp[["emb", "image", "probs"]])
         else:
-            self.dp = copy.deepcopy(self.dp[["emb"]])
+            self.dp = copy.deepcopy(self.dp[["emb", "probs"]])
 
     def create_instance(self, pattern_size, knn_num):
         with_image = self.with_image
@@ -85,6 +86,7 @@ class DcbenchInstance:
                 "image": copy.deepcopy(self.dp["image"]),
                 "true_label": copy.deepcopy(self.true_label),
                 "pseudo_label": copy.deepcopy(self.pseudo_label),
+                "probs" : copy.deepcopy(self.probs),
                 "pattern": pattern_mask
             }
             )
@@ -94,6 +96,7 @@ class DcbenchInstance:
                 "emb": copy.deepcopy(self.emb),
                 "true_label": copy.deepcopy(self.true_label),
                 "pseudo_label": copy.deepcopy(self.pseudo_label),
+                "probs" : copy.deepcopy(self.probs),
                 "pattern": pattern_mask
             }
             )                

@@ -114,8 +114,8 @@ if __name__ == "__main__":
     result_folder_path = sys.argv[3]
 
     datasets = os.listdir(datasets_folder_path) 
-    varthetas = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-    deltas = [10 ** -10, 10 ** -9, 10 ** -8, 10 ** -7, 10 ** -6, 10 ** -5, 10 ** -4, 10 ** -3, 10 ** -2, 10 ** -1]
+    varthetas = [0.0, 0.25, 0.5, 0.75, 1.0]
+    deltas = [(2 ** 0.5) * (10 ** (-6))]
     for dataset in datasets:    
         for vartheta in varthetas:
             for delta in deltas:        
@@ -124,8 +124,7 @@ if __name__ == "__main__":
                 if os.path.exists(save_path):
                     continue
                 dp, config = read_dataset(dataset_path)
-                print(dataset, vartheta, delta, config["snr"])  
-            
+                print(dataset, vartheta, delta)
                 try:
                     # some code that may raise an error
                     gp_cdpp_solve_dataset(dp, config, vartheta, delta, queries_num, save_path)

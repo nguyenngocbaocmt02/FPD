@@ -2,11 +2,12 @@ _column_order:
 - emb
 - true_label
 - pseudo_label
+- probs
 - pattern
 columns:
   emb:
     block:
-      block_dir: blocks/139912929211632
+      block_dir: blocks/139636372763552
       block_index:
         start: 0
         step: 1
@@ -16,21 +17,31 @@ columns:
     len: 6048
   pattern:
     block:
-      block_dir: blocks/139912933157280
+      block_dir: blocks/139636403908320
       block_index: 2
+      mmap: false
+    dtype: *id001
+    len: 6048
+  probs:
+    block:
+      block_dir: blocks/139636372763552
+      block_index:
+        start: 512
+        step: 1
+        stop: 514
       mmap: false
     dtype: *id001
     len: 6048
   pseudo_label:
     block:
-      block_dir: blocks/139912933157280
+      block_dir: blocks/139636403908320
       block_index: 1
       mmap: false
     dtype: *id001
     len: 6048
   true_label:
     block:
-      block_dir: blocks/139912933157280
+      block_dir: blocks/139636403908320
       block_index: 0
       mmap: false
     dtype: *id001

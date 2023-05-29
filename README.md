@@ -32,4 +32,3 @@
 *Example: `$ python visualize_src/dataset_description_table.py datasets/ figures/datasets_description.csv`
 *Example `$ python visualize_src/performance_table.py results/ figures/performance_table.csv`
 *Example `$ python visualize_src/performance_type_table.py results/ figures/performance_type_table.csv`
-*Example `$ python visualize_src/limited_queries_performance_table.py results/ figures/limited_queries_performance_table.csv`

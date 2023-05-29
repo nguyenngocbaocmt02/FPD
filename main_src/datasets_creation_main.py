@@ -29,8 +29,8 @@ if __name__ == "__main__":
         pattern_size = int(dataset_config["pattern_size"])
         knn_num = int(dataset_config["knn_num"])
         save_path = os.path.join(datasets_dir_path, dataset_id)
-        if os.path.exists(save_path):
-            continue
+        #if os.path.exists(save_path):
+        #    continue
         dcbench_instance = DcbenchInstance(instance_id=dcbench, with_image=False)
         dp, snr = dcbench_instance.create_instance(pattern_size=pattern_size, knn_num=knn_num)
         dataset_config["snr"] = snr
